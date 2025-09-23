@@ -7,7 +7,6 @@ import { Header } from "./Header";
 export const MultiStepForm = (props) => {
   const { currentIndex, setCurrentIndex } = props;
   const CurrentStep = [StepOne, StepTwo, StepThree][currentIndex];
- 
 
   const continueButton = (buttonsName) => {
     if (buttonsName === "Continue" && currentIndex < 2) {
@@ -18,26 +17,35 @@ export const MultiStepForm = (props) => {
       setCurrentIndex();
     }
   };
-
+  if (currentIndex === 3) {
+    return (
+      <div className="w-120 h-[193px] bg-white p-8 flex flex-col justify-between">
+        <Header
+          h3="You're All Set! 🔥"
+          p="We've received your submission. Thank you!"
+        />
+      </div>
+    );
+  }
   return (
     <div className="w-120 h-[655px] bg-white p-8 flex flex-col justify-between">
       <div className="">
-        <Header />
-        <CurrentStep
-          setCurrentIndex={setCurrentIndex}
-          currentIndex={currentIndex}
+        <Header
+          h3="Join Us! 😎"
+          p="Please provide all current information accurately."
         />
+        <CurrentStep />
       </div>
       <div className="flex justify-between">
         <Button
-        isContinue={false}
+          isContinue={false}
           // continueButton={continueButton}
           setCurrentIndex={setCurrentIndex}
           currentIndex={currentIndex}
           buttonsName={"Back"}
         />
         <Button
-        isContinue={true}
+          isContinue={true}
           // continueButton={continueButton}
           setCurrentIndex={setCurrentIndex}
           currentIndex={currentIndex}
