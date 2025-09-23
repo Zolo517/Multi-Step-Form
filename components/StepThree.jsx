@@ -3,9 +3,9 @@ import { TextField } from "./TextField";
 
 export const StepThree = () => {
   return (
-    <div>
-      <TextField label="First name" type="date" />
-      <TextField label="Last name" type="url" />
+    <div className="flex flex-col gap-3">
+      <TextField label="Date of birth" type="date" id="date" />
+      <TextField label="Profile image" type="file" id="img" />
     </div>
   );
 };
