@@ -1,13 +1,14 @@
 
 import { TextField } from "./TextField";
 
-export const StepTwo = ({ name }) => {
+export const StepTwo = ({ name, errors , setErrors}) => {
   // const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
   // const found = p.match(regex)
   return (
     <div className="flex flex-col gap-3">
       <TextField
-        name={name}
+       errors={ errors}
+       setErrors={setErrors}
         label="Email"
         type="email"
         place="example@gmail.com "
@@ -15,7 +16,8 @@ export const StepTwo = ({ name }) => {
         error="Please provide a valid email address."
       />
       <TextField
-        name={name}
+       errors={ errors}
+       setErrors={setErrors}
         label="Phone Number"
         place="Your phone number "
         type="text"
@@ -23,7 +25,8 @@ export const StepTwo = ({ name }) => {
         error="Please enter valid phone number."
       />
       <TextField
-        name={name}
+       errors={ errors}
+       setErrors={setErrors}
         label="Password"
         place="Your password "
         type="password"
@@ -31,7 +34,8 @@ export const StepTwo = ({ name }) => {
         error="Password must include letters and numbers."
       />
       <TextField
-        name={name}
+       errors={ errors}
+       setErrors={setErrors}
         id="confirm"
         label="Confirm password"
         place="Your confirm password"

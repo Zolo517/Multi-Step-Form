@@ -3,33 +3,45 @@ export const StepOne = (props) => {
   const { errors, setErrors, name } = props;
   return (
     <div className="flex flex-col gap-3">
-      <TextField
-        setErrors={setErrors}
-        name={name}
-        label="First name"
-        place="Your first name "
-        type="text"
-        id="first"
-        error="First name cannot contain special characters or numbers."
-      />
-      <TextField
-        setErrors={setErrors}
-        name={name}
-        label="Last name"
-        place="Your last name "
-        type="text"
-        id="last"
-        error="Last name cannot contain special characters or numbers."
-      />
-      <TextField
-        setErrors={setErrors}
-        name={name}
-        label="Username"
-        place="Your username "
-        type="text"
-        id="user"
-        error="This username is already taken. Please choose another one."
-      />
+      <div>
+        <TextField
+          setErrors={setErrors}
+          errors={errors}
+          label="First name"
+          place="Your first name "
+          type="text"
+          id="first"
+        />
+        {errors.firstName && (
+          <p className="text-[#E14942] text-[12px]">{errors.firstName} </p>
+        )}
+      </div>
+      <div>
+        <TextField
+          errors={errors}
+          setErrors={setErrors}
+          label="Last name"
+          place="Your last name "
+          type="text"
+          id="last"
+        />
+        {errors.lastName && (
+          <p className="text-[#E14942] text-[12px]">{errors.lastName} </p>
+        )}
+      </div>
+      <div>
+        <TextField
+          errors={errors}
+          setErrors={setErrors}
+          label="Username"
+          place="Your username "
+          type="text"
+          id="user"
+        />
+        {errors.userName && (
+          <p className="text-[#E14942] text-[12px]">{errors.userName} </p>
+        )}
+      </div>
     </div>
   );
 };

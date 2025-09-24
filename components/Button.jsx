@@ -1,15 +1,11 @@
 export const Button = (props) => {
-  const {
-    setCurrentIndex,
-    currentIndex,
-    buttonsName,
-    isContinue,
-    onClickButton,
-  } = props;
+  const { setCurrentIndex, currentIndex, buttonsName, isContinue, type } =
+    props;
   if (isContinue && currentIndex < 2) {
     return (
       <div className="w-full">
         <button
+          type={type}
           className="h-11 border-2 rounded-md py-[10px] w-full bg-[#121316] text-white flex justify-center items-center hover:opacity-80 "
           onClick={() => {
             setCurrentIndex(currentIndex + 1);
@@ -56,6 +52,7 @@ export const Button = (props) => {
     return (
       <div className="w-70">
         <button
+          type={type}
           className="h-11 border-2 rounded-md py-[10px] w-full bg-[#121316] text-white flex justify-center items-center gap-3 "
           onClick={() => setCurrentIndex(currentIndex + 1)}
         >
