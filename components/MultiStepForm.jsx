@@ -11,8 +11,16 @@ export const MultiStepForm = () => {
 
   const [errors, setErrors] = useState({});
 
+  const continueBtn = () => {
+    setCurrentIndex(currentIndex + 1);
+  };
+
+  const backBtn = () => {
+    setCurrentIndex(currentIndex - 1);
+  };
+
   const validate = (data) => {
-    const errors = {};
+    const errors = { firstName: "" };
 
     const firstName = data.get("firstName");
     const lastName = data.get("lastName");
@@ -70,21 +78,37 @@ export const MultiStepForm = () => {
         </div>
 
         <div className="flex gap-2">
-          <Button
-            type="button"
-            isContinue={false}
-            setCurrentIndex={setCurrentIndex}
-            currentIndex={currentIndex}
-            buttonsName="Back"
-          />
+          {currentIndex !== 0 ? (
+            <Button
+              type="button"
+              isContinue={false}
+              setCurrentIndex={setCurrentIndex}
+              currentIndex={currentIndex}
+              buttonsName="Back"
+              backBtn={backBtn}
+            />
+          ) : (
+            ""
+          )}
 
-          <Button
-            type="submit"
-            isContinue={true}
-            setCurrentIndex={setCurrentIndex}
-            currentIndex={currentIndex}
-            buttonsName="Continue"
-          />
+          {currentIndex < 2 ? (
+            <Button
+              isContinue={true}
+              setCurrentIndex={setCurrentIndex}
+              currentIndex={currentIndex}
+              buttonsName="Continue"
+              continueBtn={continueBtn}
+
+            />
+          ) : (
+            <Button
+              isContinue={true}
+              setCurrentIndex={setCurrentIndex}
+              currentIndex={currentIndex}
+              buttonsName="Submit"
+
+            />
+          )}
         </div>
       </form>
     </div>
