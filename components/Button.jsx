@@ -1,11 +1,19 @@
 export const Button = (props) => {
-  const { setCurrentIndex, currentIndex, buttonsName, isContinue } = props;
+  const {
+    setCurrentIndex,
+    currentIndex,
+    buttonsName,
+    isContinue,
+    onClickButton,
+  } = props;
   if (isContinue && currentIndex < 2) {
     return (
       <div className="w-full">
         <button
-          className="h-11 border-2 rounded-md py-[10px] w-full bg-[#121316] text-white flex justify-center items-center "
-          onClick={() => setCurrentIndex(currentIndex + 1)}
+          className="h-11 border-2 rounded-md py-[10px] w-full bg-[#121316] text-white flex justify-center items-center hover:opacity-80 "
+          onClick={() => {
+            setCurrentIndex(currentIndex + 1);
+          }}
         >
           <p>{`${buttonsName} ${currentIndex + 1}/3`}</p>
           <svg
@@ -23,10 +31,10 @@ export const Button = (props) => {
         </button>
       </div>
     );
-  } else if (!isContinue && currentIndex!==0) {
+  } else if (!isContinue && currentIndex !== 0) {
     return (
-        <button
-        className="h-11 border-1 rounded-md py-[10px] w-32 border-[#CBD5E1] flex justify-center items-center gap-3  "
+      <button
+        className="h-11 border-1 rounded-md py-[10px] w-32 border-[#CBD5E1] flex justify-center items-center gap-3 hover:bg-gray-100 "
         onClick={() => setCurrentIndex(currentIndex - 1)}
       >
         <svg
@@ -44,11 +52,11 @@ export const Button = (props) => {
         <p> {buttonsName}</p>
       </button>
     );
-  }else if(isContinue && currentIndex === 2){
+  } else if (isContinue && currentIndex === 2) {
     return (
       <div className="w-70">
         <button
-          className="h-11 border-2 rounded-md py-[10px] w-full bg-[#121316] text-white flex justify-center items-center "
+          className="h-11 border-2 rounded-md py-[10px] w-full bg-[#121316] text-white flex justify-center items-center gap-3 "
           onClick={() => setCurrentIndex(currentIndex + 1)}
         >
           <p>Submit</p>
@@ -66,7 +74,6 @@ export const Button = (props) => {
           </svg>
         </button>
       </div>
-  );
+    );
   }
-  
 };
