@@ -9,17 +9,46 @@ import { StepFour } from "./StepFour";
 
 export const MultiStepForm = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [localData, setLocalData] = useState()
+  const [localData, setLocalData] = useState({
+    first: "",
+    last: "",
+    user: "",
+    email: "",
+    number: "",
+    pass: "",
+    confirmPass: "",
+    date: "",
+    img: "",
+  });
 
   const [errors, setErrors] = useState({});
   const CurrentStep = [StepOne, StepTwo, StepThree][currentIndex];
 
-  useEffect(()=>{
-    const localStorageData = JSON.parse(localStorage.getItem("data"))
-    if(localStorageData){
-      setLocalData()
+  useEffect(() => {
+    const localStorageData = JSON.parse(localStorage.getItem("data"));
+    if (localStorageData) {
+      setLocalData(
+        "data",
+        JSON.stringify({
+          ...localStorageData,
+          first,
+          last,
+          user,
+       
+        })
+      );
+    } else {
+      setLocalData(
+        "data",
+        JSON.stringify({
+          first,
+          last,
+          user,
+       
+        })
+      );
     }
-  },[])
+  }, []);
 
   const validate = (data) => {
     const errors = {};
@@ -30,7 +59,7 @@ export const MultiStepForm = () => {
     const email = data.get("email");
     const number = data.get("number");
     const pass = data.get("pass");
-    const confirm = data.get("confirm");
+    const confirmPass = data.get("confirmPass");
     const date = data.get("date");
     const img = data.get("img");
 
@@ -51,14 +80,14 @@ export const MultiStepForm = () => {
         errors.number = "Please enter valid phone number.";
       if (!pass || pass.length < 6)
         errors.pass = "Password must include letters and numbers.";
-      if (!confirm || confirm !== pass)
-        errors.confirm = "Password do not match. Please try again.";
+      if (!confirmPass || confirmPass !== pass)
+        errors.confirmPass = "Password do not match. Please try again.";
     }
     if (currentIndex === 2) {
       if (!date) errors.date = "Please select a date";
       if (!img) errors.img = "Image cannot be blank";
     }
-    console.log(pass, confirm);
+    localStorage.setItem("localData", localData);
     setErrors(errors);
     return Object.keys(errors).length === 0;
   };
@@ -135,10 +164,6 @@ export const MultiStepForm = () => {
   );
 };
 
-
 // localstorage.getItem = zaaval JSON.parse aar orooj objectiig string bolgoh ystoi
-// localStorage.setItem = zaaval JSON.stringify aar orooj string bolgoh ystoi 
+// localStorage.setItem = zaaval JSON.stringify aar orooj string bolgoh ystoi
 // object bish gantshan item avmaar baigaa tohioldold JSON bichih shaardlaga baihgui
-
-
-

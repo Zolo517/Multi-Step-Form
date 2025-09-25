@@ -2,7 +2,7 @@ import Image from "next/image";
 
 export const StepFour = () => {
   return (
-    <div className="flex flex-col gap-2 mb-7">
+    <div className="w-120 flex flex-col gap-2 mb-7">
       <Image
         src="/pinecone-logo.png"
         alt="pinecone logo"
