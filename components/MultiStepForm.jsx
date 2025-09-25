@@ -25,29 +25,7 @@ export const MultiStepForm = () => {
   const CurrentStep = [StepOne, StepTwo, StepThree][currentIndex];
 
   useEffect(() => {
-    const localStorageData = JSON.parse(localStorage.getItem("data"));
-    if (localStorageData) {
-      setLocalData(
-        "data",
-        JSON.stringify({
-          ...localStorageData,
-          first,
-          last,
-          user,
-       
-        })
-      );
-    } else {
-      setLocalData(
-        "data",
-        JSON.stringify({
-          first,
-          last,
-          user,
-       
-        })
-      );
-    }
+    
   }, []);
 
   const validate = (data) => {
@@ -62,6 +40,8 @@ export const MultiStepForm = () => {
     const confirmPass = data.get("confirmPass");
     const date = data.get("date");
     const img = data.get("img");
+
+    const prevData = JSON.parse(localStorage.getItem("data"));
 
     if (currentIndex === 0) {
       if (!first || first.length < 5)
@@ -87,7 +67,9 @@ export const MultiStepForm = () => {
       if (!date) errors.date = "Please select a date";
       if (!img) errors.img = "Image cannot be blank";
     }
-    localStorage.setItem("localData", localData);
+
+
+
     setErrors(errors);
     return Object.keys(errors).length === 0;
   };
@@ -167,3 +149,45 @@ export const MultiStepForm = () => {
 // localstorage.getItem = zaaval JSON.parse aar orooj objectiig string bolgoh ystoi
 // localStorage.setItem = zaaval JSON.stringify aar orooj string bolgoh ystoi
 // object bish gantshan item avmaar baigaa tohioldold JSON bichih shaardlaga baihgui
+
+{
+  /*
+
+json ashiglaj objectiig string bolgoson
+
+
+
+      const prevData = JSON.parse(localStorage.getItem("data"));
+    if (prevData)
+      localStorage.setItem(
+        "data",
+        JSON.stringify({
+          ...prevData,
+          first,
+          last,
+          user,
+          email,
+          number,
+          pass,
+          confirmPass,
+          date,
+          img,
+        })
+      );
+    else
+      localStorage.setItem(
+        "data",
+        JSON.stringify({
+          first,
+          last,
+          user,
+          email,
+          number,
+          pass,
+          confirmPass,
+          date,
+          img,
+        })
+      );
+      */
+}

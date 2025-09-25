@@ -10,7 +10,9 @@ export const Header = ({ h3, p }) => {
         height={60}
       />
       <h3 className="font-semibold text-[26px]   ">Join Us! 😎</h3>
-      <p className="text-[#8E8E8E] text-[18px]">Please provide all current information accurately.</p>
+      <p className="text-[#8E8E8E] text-[18px]">
+        Please provide all current information accurately.
+      </p>
     </div>
   );
 };
