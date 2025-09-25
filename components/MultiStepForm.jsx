@@ -1,15 +1,67 @@
 "use client";
-import { useState } from "react";
-import { StepOne } from "@/components/StepOne";
-import { StepTwo } from "@/components/StepTwo";
-import { StepThree } from "@/components/StepThree";
+import { useEffect, useState } from "react";
+import { StepOne } from "./StepOne";
+import { StepTwo } from "./StepTwo";
+import { StepThree } from "./StepThree";
 import { Button } from "./Button";
 import { Header } from "./Header";
+import { StepFour } from "./StepFour";
 
 export const MultiStepForm = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [localData, setLocalData] = useState()
 
   const [errors, setErrors] = useState({});
+  const CurrentStep = [StepOne, StepTwo, StepThree][currentIndex];
+
+  useEffect(()=>{
+    const localStorageData = JSON.parse(localStorage.getItem("data"))
+    if(localStorageData){
+      setLocalData()
+    }
+  },[])
+
+  const validate = (data) => {
+    const errors = {};
+
+    const first = data.get("first");
+    const last = data.get("last");
+    const user = data.get("user");
+    const email = data.get("email");
+    const number = data.get("number");
+    const pass = data.get("pass");
+    const confirm = data.get("confirm");
+    const date = data.get("date");
+    const img = data.get("img");
+
+    if (currentIndex === 0) {
+      if (!first || first.length < 5)
+        errors.first =
+          "First name cannot contain special characters or numbers.";
+      if (!last || last.length < 5)
+        errors.last = "Last name cannot contain special characters or numbers.";
+      if (!user || user.length < 5)
+        errors.user =
+          "This username is already taken. Please choose another one.";
+    }
+
+    if (currentIndex === 1) {
+      if (!email) errors.email = "Please provide a valid email address.";
+      if (!number || number.length < 8)
+        errors.number = "Please enter valid phone number.";
+      if (!pass || pass.length < 6)
+        errors.pass = "Password must include letters and numbers.";
+      if (!confirm || confirm !== pass)
+        errors.confirm = "Password do not match. Please try again.";
+    }
+    if (currentIndex === 2) {
+      if (!date) errors.date = "Please select a date";
+      if (!img) errors.img = "Image cannot be blank";
+    }
+    console.log(pass, confirm);
+    setErrors(errors);
+    return Object.keys(errors).length === 0;
+  };
 
   const continueBtn = () => {
     setCurrentIndex(currentIndex + 1);
@@ -19,98 +71,74 @@ export const MultiStepForm = () => {
     setCurrentIndex(currentIndex - 1);
   };
 
-  const validate = (data) => {
-    const errors = { firstName: "" };
-
-    const firstName = data.get("firstName");
-    const lastName = data.get("lastName");
-    const userName = data.get("userName");
-
-    if (!firstName || !lastName || !userName) {
-      errors.firstName =
-        "First name cannot contain special characters or numbers.";
-      errors.lastName =
-        "Last name cannot contain special characters or numbers.";
-      errors.userName =
-        "This username is already taken. Please choose another one.";
-    } else if (userName.length < 5) {
-      errors.userName = "Too short name";
-    }
-    setErrors(errors);
-    return Object.keys(errors).length === 0;
-  };
-
-  const handleSubmit = (event) => {
+  const submitHandler = (event) => {
     event.preventDefault();
     const data = new FormData(event.target);
 
     if (!validate(data)) {
       return null;
     }
+
     setCurrentIndex(currentIndex + 1);
   };
 
-  const CurrentStep = [StepOne, StepTwo, StepThree][currentIndex];
-
   if (currentIndex === 3) {
     return (
-      <div className="w-120 h-[193px] bg-white p-8 flex flex-col justify-between">
-        <Header
-          h3="You're All Set! 🔥"
-          p="We've received your submission. Thank you!"
-        />
+      <div className=" bg-white p-8 flex flex-col  justify-between">
+        <StepFour />
       </div>
     );
   }
 
   return (
-    <div>
-      <form
-        className="w-120 h-[655px] bg-white p-8 flex flex-col  justify-between"
-        onSubmit={handleSubmit}
-      >
-        <div className="">
-          <Header
-            h3="Join Us! 😎"
-            p="Please provide all current information accurately."
+    <form
+      className="w-120 h-[655px] bg-white p-8 flex flex-col  justify-between"
+      onSubmit={submitHandler}
+    >
+      <div className="">
+        <Header />
+
+        <CurrentStep setErrors={setErrors} errors={errors} />
+      </div>
+
+      <div className="flex gap-2">
+        {currentIndex !== 0 ? (
+          <Button
+            type="button"
+            isContinue={false}
+            setCurrentIndex={setCurrentIndex}
+            currentIndex={currentIndex}
+            buttonsName="<  Back"
+            backBtn={backBtn}
           />
-          <CurrentStep setErrors={setErrors} errors={errors} />
-        </div>
+        ) : null}
 
-        <div className="flex gap-2">
-          {currentIndex !== 0 ? (
-            <Button
-              type="button"
-              isContinue={false}
-              setCurrentIndex={setCurrentIndex}
-              currentIndex={currentIndex}
-              buttonsName="Back"
-              backBtn={backBtn}
-            />
-          ) : (
-            ""
-          )}
-
-          {currentIndex < 2 ? (
-            <Button
-              isContinue={true}
-              setCurrentIndex={setCurrentIndex}
-              currentIndex={currentIndex}
-              buttonsName="Continue"
-              continueBtn={continueBtn}
-
-            />
-          ) : (
-            <Button
-              isContinue={true}
-              setCurrentIndex={setCurrentIndex}
-              currentIndex={currentIndex}
-              buttonsName="Submit"
-
-            />
-          )}
-        </div>
-      </form>
-    </div>
+        {currentIndex < 2 ? (
+          <Button
+            isContinue={true}
+            setCurrentIndex={setCurrentIndex}
+            currentIndex={currentIndex}
+            buttonsName="Continue"
+            continueBtn={continueBtn}
+          />
+        ) : (
+          <Button
+            isContinue={true}
+            setCurrentIndex={setCurrentIndex}
+            currentIndex={currentIndex}
+            buttonsName="Submit"
+            continueBtn={continueBtn}
+          />
+        )}
+      </div>
+    </form>
   );
 };
+
+
+// localstorage.getItem = zaaval JSON.parse aar orooj objectiig string bolgoh ystoi
+// localStorage.setItem = zaaval JSON.stringify aar orooj string bolgoh ystoi 
+// object bish gantshan item avmaar baigaa tohioldold JSON bichih shaardlaga baihgui
+
+
+

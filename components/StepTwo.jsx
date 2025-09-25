@@ -13,7 +13,7 @@ export const StepTwo = ({ name, errors , setErrors}) => {
         type="email"
         place="example@gmail.com "
         id="email"
-        error="Please provide a valid email address."
+        name="email"
       />
       <TextField
        errors={ errors}
@@ -22,7 +22,8 @@ export const StepTwo = ({ name, errors , setErrors}) => {
         place="Your phone number "
         type="text"
         id="number"
-        error="Please enter valid phone number."
+        name="number"
+        
       />
       <TextField
        errors={ errors}
@@ -31,16 +32,17 @@ export const StepTwo = ({ name, errors , setErrors}) => {
         place="Your password "
         type="password"
         id="pass"
-        error="Password must include letters and numbers."
+        name="pass"
       />
       <TextField
        errors={ errors}
        setErrors={setErrors}
         id="confirm"
+        name="confirm"
         label="Confirm password"
         place="Your confirm password"
         type="password"
-        error="Password do not match. Please try again."
+
       />
     </div>
   );

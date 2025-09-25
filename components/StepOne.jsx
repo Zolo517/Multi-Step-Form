@@ -11,10 +11,9 @@ export const StepOne = (props) => {
           place="Your first name "
           type="text"
           id="first"
+          name="first"
         />
-        {errors.firstName && (
-          <p className="text-[#E14942] text-[12px]">{errors.firstName} </p>
-        )}
+    
       </div>
       <div>
         <TextField
@@ -24,10 +23,9 @@ export const StepOne = (props) => {
           place="Your last name "
           type="text"
           id="last"
+          name="last"
         />
-        {errors.lastName && (
-          <p className="text-[#E14942] text-[12px]">{errors.lastName} </p>
-        )}
+     
       </div>
       <div>
         <TextField
@@ -37,10 +35,9 @@ export const StepOne = (props) => {
           place="Your username "
           type="text"
           id="user"
+          name="user"
         />
-        {errors.userName && (
-          <p className="text-[#E14942] text-[12px]">{errors.userName} </p>
-        )}
+   
       </div>
     </div>
   );

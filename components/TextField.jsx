@@ -11,7 +11,7 @@ export const TextField = (props) => {
       </div>
       <input
         id={id}
-        onChange={() => setErrors({ ...errors, email: "" })}
+        onChange={() => setErrors({ ...errors,  [name]:null})}
         name={name}
         className={
           id === "img"
@@ -20,9 +20,11 @@ export const TextField = (props) => {
         }
         type={type}
         placeholder={place}
-        title=" "
+        title={title}
       />
-      
+           {errors[name]&& (
+          <p className="text-[#E14942] text-[12px]">{errors[name]} </p>
+        )}
     </div>
   );
 };
