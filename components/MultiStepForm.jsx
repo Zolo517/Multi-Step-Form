@@ -6,6 +6,7 @@ import { StepThree } from "./StepThree";
 import { Button } from "./Button";
 import { Header } from "./Header";
 import { StepFour } from "./StepFour";
+import { AnimatePresence, motion } from "motion/react";
 
 export const MultiStepForm = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -25,7 +26,94 @@ export const MultiStepForm = () => {
   const CurrentStep = [StepOne, StepTwo, StepThree][currentIndex];
 
   useEffect(() => {
-    
+    const localStorageData = localStorage.getItem("first");
+    if (localStorageData) {
+      setLocalData((prevData) => ({ ...prevData, first: localStorageData }));
+      console.log(localStorageData);
+    }
+  }, []);
+  useEffect(() => {
+    localStorage.setItem("first", localData.first);
+  }, []);
+
+  useEffect(() => {
+    const localStorageData = localStorage.getItem("last");
+    if (localStorageData) {
+      setLocalData((prev) => ({ ...prev, last: localStorageData }));
+    }
+  }, []);
+  useEffect(() => {
+    localStorage.setItem("last", localData.last);
+  }, []);
+
+  useEffect(() => {
+    const localStorageData = localStorage.getItem("user");
+    if (localStorageData) {
+      setLocalData((prev) => ({ ...prev, user: localStorageData }));
+    }
+  }, []);
+  useEffect(() => {
+    localStorage.setItem("user", localData.user);
+  }, []);
+
+  useEffect(() => {
+    const localStorageData = localStorage.getItem("email");
+    if (localStorageData) {
+      setLocalData((prev) => ({ ...prev, email: localStorageData }));
+    }
+  }, []);
+  useEffect(() => {
+    localStorage.setItem("email", localData.email);
+  }, []);
+
+  useEffect(() => {
+    const localStorageData = localStorage.getItem("number");
+    if (localStorageData) {
+      setLocalData((prev) => ({ ...prev, number: localStorageData }));
+    }
+  }, []);
+  useEffect(() => {
+    localStorage.setItem("number", localData.number);
+  }, []);
+
+  useEffect(() => {
+    const localStorageData = localStorage.getItem("pass");
+    if (localStorageData) {
+      setLocalData((prev) => ({ ...prev, pass: localStorageData }));
+    }
+  }, []);
+  useEffect(() => {
+    localStorage.setItem("pass", localData.pass);
+  }, []);
+
+  useEffect(() => {
+    const localStorageData = localStorage.getItem("confirmPass");
+    if (localStorageData) {
+      setLocalData((prev) => ({ ...prev, confirmPass: localStorageData }));
+    }
+  }, []);
+  useEffect(() => {
+    localStorage.setItem("confirmPass", localData.confirmPass);
+  }, []);
+
+  useEffect(() => {
+    const localStorageData = localStorage.getItem("date");
+    if (localStorageData) {
+      setLocalData((prev) => ({ ...prev, date: localStorageData }));
+    }
+  }, []);
+  useEffect(() => {
+    localStorage.setItem("date", localData.date);
+  }, []);
+
+  useEffect(() => {
+    const localStorageData = localStorage.getItem("img");
+    if (localStorageData) {
+      setLocalData((prev) => ({ ...prev, img: localStorageData }));
+    }
+  }, []);
+  useEffect(() => {
+    localStorage.setItem("img", localData.img);
   }, []);
 
   const validate = (data) => {
@@ -41,8 +129,6 @@ export const MultiStepForm = () => {
     const date = data.get("date");
     const img = data.get("img");
 
-    const prevData = JSON.parse(localStorage.getItem("data"));
-
     if (currentIndex === 0) {
       if (!first || first.length < 5)
         errors.first =
@@ -55,8 +141,9 @@ export const MultiStepForm = () => {
     }
 
     if (currentIndex === 1) {
-      if (!email) errors.email = "Please provide a valid email address.";
-      if (!number || number.length < 8)
+      if (!email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/))
+        errors.email = "Please provide a valid email address.";
+      if (!number.match(/^\+?\d{8}$/))
         errors.number = "Please enter valid phone number.";
       if (!pass || pass.length < 6)
         errors.pass = "Password must include letters and numbers.";
@@ -67,9 +154,7 @@ export const MultiStepForm = () => {
       if (!date) errors.date = "Please select a date";
       if (!img) errors.img = "Image cannot be blank";
     }
-
-
-
+    console.log(first, last, user, number, email, pass, confirmPass, date, img);
     setErrors(errors);
     return Object.keys(errors).length === 0;
   };
@@ -102,47 +187,51 @@ export const MultiStepForm = () => {
   }
 
   return (
-    <form
-      className="w-120 h-[655px] bg-white p-8 flex flex-col  justify-between"
-      onSubmit={submitHandler}
-    >
-      <div className="">
-        <Header />
+    <div>
+      <form
+        className="w-120 h-[655px] bg-white p-8 flex flex-col overflow-hidden justify-between"
+        onSubmit={submitHandler}
+      >
+        <div className="">
+          <Header />
 
-        <CurrentStep setErrors={setErrors} errors={errors} />
-      </div>
+          <AnimatePresence>
+            <CurrentStep setErrors={setErrors} errors={errors} />
+          </AnimatePresence>
+        </div>
 
-      <div className="flex gap-2">
-        {currentIndex !== 0 ? (
-          <Button
-            type="button"
-            isContinue={false}
-            setCurrentIndex={setCurrentIndex}
-            currentIndex={currentIndex}
-            buttonsName="<  Back"
-            backBtn={backBtn}
-          />
-        ) : null}
+        <div className="flex gap-2">
+          {currentIndex !== 0 ? (
+            <Button
+              type="button"
+              isContinue={false}
+              setCurrentIndex={setCurrentIndex}
+              currentIndex={currentIndex}
+              buttonsName="<  Back"
+              backBtn={backBtn}
+            />
+          ) : null}
 
-        {currentIndex < 2 ? (
-          <Button
-            isContinue={true}
-            setCurrentIndex={setCurrentIndex}
-            currentIndex={currentIndex}
-            buttonsName="Continue"
-            continueBtn={continueBtn}
-          />
-        ) : (
-          <Button
-            isContinue={true}
-            setCurrentIndex={setCurrentIndex}
-            currentIndex={currentIndex}
-            buttonsName="Submit"
-            continueBtn={continueBtn}
-          />
-        )}
-      </div>
-    </form>
+          {currentIndex < 2 ? (
+            <Button
+              isContinue={true}
+              setCurrentIndex={setCurrentIndex}
+              currentIndex={currentIndex}
+              buttonsName="Continue"
+              continueBtn={continueBtn}
+            />
+          ) : (
+            <Button
+              isContinue={true}
+              setCurrentIndex={setCurrentIndex}
+              currentIndex={currentIndex}
+              buttonsName="Submit"
+              continueBtn={continueBtn}
+            />
+          )}
+        </div>
+      </form>
+    </div>
   );
 };
 
@@ -189,5 +278,12 @@ json ashiglaj objectiig string bolgoson
           img,
         })
       );
+
+
+
+
+ const prevData = JSON.parse(localStorage.getItem("data"));
+
+
       */
 }

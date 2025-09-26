@@ -11,20 +11,24 @@ export const TextField = (props) => {
       </div>
       <input
         id={id}
-        onChange={() => setErrors({ ...errors,  [name]:null})}
+        onChange={() => setErrors({ ...errors, [name]: null })}
         name={name}
         className={
-          id === "img"
-            ? "flex flex-col h-[180px] w-full rounded-lg p-3 border-[1px] focus:outline-none border-[#CBD5E1] focus:border-[#0CA5E9]"
-            : "flex flex-col h-11 w-full rounded-lg p-3 border-[1px] focus:outline-none border-[#CBD5E1] focus:border-[#0CA5E9]"
+          errors[name]
+            ? `flex flex-col ${
+                name == "img" ? "h-45" : "h-11"
+              } w-full rounded-lg p-3 border-[1px] focus:outline-none border-[#E14942] focus:border-[#0CA5E9]`
+            : `flex flex-col ${
+                name == "img" ? "h-45" : "h-11"
+              } w-full rounded-lg p-3 border-[1px] focus:outline-none border-[#CBD5E1] focus:border-[#0CA5E9]`
         }
         type={type}
         placeholder={place}
         title={title}
       />
-           {errors[name]&& (
-          <p className="text-[#E14942] text-[12px]">{errors[name]} </p>
-        )}
+      {errors[name] && (
+        <p className="text-[#E14942] text-[12px]">{errors[name]} </p>
+      )}
     </div>
   );
 };

@@ -1,15 +1,20 @@
 import { TextField } from "./TextField";
+import { AnimatePresence, motion } from "motion/react";
 
 export const StepTwo = ({ name, errors, setErrors }) => {
   // const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
   // const found = p.match(regex)
   return (
-    <div className="flex flex-col gap-3">
+    <motion.div initial={{ x: 100, opacity: 0 }}
+    animate={{ x: 0, opacity: 1 }}
+    exit={{ x: 100, opacity: 0 }}
+    transition={{ duration: 2 }}>
+      <div className="flex flex-col gap-3">
       <TextField
         errors={errors}
         setErrors={setErrors}
         label="Email"
-        type="email"
+        type="text"
         place="example@gmail.com "
         id="email"
         name="email"
@@ -42,5 +47,6 @@ export const StepTwo = ({ name, errors, setErrors }) => {
         type="password"
       />
     </div>
+    </motion.div>
   );
 };
