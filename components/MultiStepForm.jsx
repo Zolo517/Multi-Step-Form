@@ -120,7 +120,7 @@ export const MultiStepForm = () => {
           <Header />
 
           <AnimatePresence>
-            <CurrentStep handleChange={handleChange} />
+            <CurrentStep handleChange={handleChange} errors={errors} localData={localData}/>
           </AnimatePresence>
         </div>
 

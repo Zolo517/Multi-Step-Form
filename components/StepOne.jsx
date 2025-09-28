@@ -2,7 +2,7 @@ import { TextField } from "./TextField";
 import { AnimatePresence, motion } from "motion/react";
 
 export const StepOne = (props) => {
-  const { handleChange } = props;
+  const { handleChange,localData, errors } = props;
   return (
     <motion.div
       initial={{ x: 100, opacity: 0 }}
@@ -14,6 +14,8 @@ export const StepOne = (props) => {
         <div>
           <TextField
          handleChange={handleChange}
+         localData={localData}
+         errors={errors}
             label="First name"
             place="Your first name "
             type="text"
@@ -24,6 +26,8 @@ export const StepOne = (props) => {
         <div>
           <TextField
          handleChange={handleChange}
+         localData={localData}
+         errors={errors}
             label="Last name"
             place="Your last name "
             type="text"
@@ -34,6 +38,8 @@ export const StepOne = (props) => {
         <div>
           <TextField
         handleChange={handleChange}
+        localData={localData}
+         errors={errors}
             label="Username"
             place="Your username "
             type="text"

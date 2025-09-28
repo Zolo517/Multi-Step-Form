@@ -3,7 +3,7 @@ import { TextField } from "./TextField";
 import { AnimatePresence, motion } from "motion/react";
 
 export const StepThree = ({
-handleChange
+handleChange,localData, errors
 }) => {
   return (
     <motion.div
@@ -15,6 +15,8 @@ handleChange
       <div className="flex flex-col gap-3">
         <TextField
         handleChange={handleChange}
+        localData={localData}
+         errors={errors}
           label="Date of birth"
           type="date"
           id="date"
@@ -22,6 +24,8 @@ handleChange
         />
         <TextField
          handleChange={handleChange}
+         localData={localData}
+         errors={errors}
           title="Choose a video please"
           label="Profile image"
           type="file"
