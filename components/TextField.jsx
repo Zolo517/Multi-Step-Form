@@ -1,5 +1,16 @@
 export const TextField = (props) => {
-  const { place, label, type, id, name, errors, title, setErrors } = props;
+  const {
+    place,
+    label,
+    type,
+    id,
+    value,
+    localData,
+    name,
+    errors,
+    title,
+  handleChange
+  } = props;
 
   return (
     <div>
@@ -11,7 +22,8 @@ export const TextField = (props) => {
       </div>
       <input
         id={id}
-        onChange={() => setErrors({ ...errors, [name]: null })}
+        value={localData.name}
+        onChange={handleChange}
         name={name}
         className={
           errors[name]

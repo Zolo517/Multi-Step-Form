@@ -2,7 +2,9 @@ import Image from "next/image";
 import { TextField } from "./TextField";
 import { AnimatePresence, motion } from "motion/react";
 
-export const StepThree = ({ name, errors, setErrors }) => {
+export const StepThree = ({
+handleChange
+}) => {
   return (
     <motion.div
       initial={{ x: 100, opacity: 0 }}
@@ -12,17 +14,15 @@ export const StepThree = ({ name, errors, setErrors }) => {
     >
       <div className="flex flex-col gap-3">
         <TextField
-          errors={errors}
-          setErrors={setErrors}
+        handleChange={handleChange}
           label="Date of birth"
           type="date"
           id="date"
           name="date"
         />
         <TextField
-          errors={errors}
+         handleChange={handleChange}
           title="Choose a video please"
-          setErrors={setErrors}
           label="Profile image"
           type="file"
           id="img"

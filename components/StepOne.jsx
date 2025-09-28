@@ -2,7 +2,7 @@ import { TextField } from "./TextField";
 import { AnimatePresence, motion } from "motion/react";
 
 export const StepOne = (props) => {
-  const { errors, setErrors } = props;
+  const { handleChange } = props;
   return (
     <motion.div
       initial={{ x: 100, opacity: 0 }}
@@ -13,8 +13,7 @@ export const StepOne = (props) => {
       <div className="flex flex-col gap-3">
         <div>
           <TextField
-            setErrors={setErrors}
-            errors={errors}
+         handleChange={handleChange}
             label="First name"
             place="Your first name "
             type="text"
@@ -24,8 +23,7 @@ export const StepOne = (props) => {
         </div>
         <div>
           <TextField
-            errors={errors}
-            setErrors={setErrors}
+         handleChange={handleChange}
             label="Last name"
             place="Your last name "
             type="text"
@@ -35,8 +33,7 @@ export const StepOne = (props) => {
         </div>
         <div>
           <TextField
-            errors={errors}
-            setErrors={setErrors}
+        handleChange={handleChange}
             label="Username"
             place="Your username "
             type="text"
